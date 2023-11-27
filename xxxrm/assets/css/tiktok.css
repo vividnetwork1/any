@@ -1,0 +1,900 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap');
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../MaterialIconsRound-Regular.otf');
+    /* For IE6-8 */
+    src: local('Material Icons'), local('MaterialIcons-Regular'), url('../MaterialIconsRound-Regular.otf') format('otf'),
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+
+/* Storage Variables starts here */
+
+:root {
+    --primary-color-black: black;
+    --primary-color-white: white;
+    --primary-font-family: 'Raleway', sans-serif;
+    --primary-main-preset-color: #ec1e23;
+    --primary-main-preset-shadow: 0px -1px 6px 0px black;
+    --primary-main-nav-shadow: 0px 2px 4px 0px #b7b7b7;
+    --primary-main-title-color: #6c00ff;
+    --primary-nav-text-color: #007fff;
+    --primary-report-button: #0027ff;
+    --primary-fixed-button: #1d74ff;
+    --primary-mains-content: #f5f5f5;
+    --primary-table-border-color: #dee2e6;
+    --primary-login-background: rgba(174, 24, 36, 0.8);
+    --primary-login-title: #ff0000;
+    --primary-login-button-color: #ff009d;
+    --primary-body-bg-color: #f5f5f5;
+    --primary-sub-top-heading: #0052b2;
+    --primary-nav-tab-color: #ffffff;
+    --primary-sub-button: #0093ff;
+    --primary-sub-alt-color: #707070;
+    --primary-sub-alt-border: #3f669c;
+    --primary-alt-cancel-btn: #919191;
+    --primary-alt-approve-btn: #2600c6;
+    --primary-modal-approve-btn: #0062ff;
+    --primary-body-wrapper-shadow: 3px 4px 8px 0px #9f9f9f;
+    --primary-details-shadow: #585858;
+    --primary-load-more: #4aaede;
+    --primary-hover-box-shadow: rgba(121, 121, 121);
+    --primary-follow-button: #673ab7;
+    --progress-width: 100%;
+}
+
+
+/* Storage Variables ends here */
+
+
+/* Flex section starts here */
+
+.flex-main-nowrap {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+.flex-main-align-center {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-items: center;
+}
+
+.flex-main-wrap {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.flex-main-nowrap-col {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: nowrap;
+}
+
+.flex-main-center {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: nowrap;
+}
+
+.flex-main-center-sb {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: space-between;
+    justify-content: space-between;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: nowrap;
+}
+
+.flex-main-start {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-items: center;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+.flex-main-start-col {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-items: flex-start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+.flex-main-center-col {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+.flex-main-center-col-imp {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex !important;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-content: center;
+    -ms-flex-line-pack: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
+
+/* Flex section ends here */
+
+
+/* custom scrollbar css starts here*/
+
+
+/* .main-container::-webkit-scrollbar {
+    width: 10px;
+    display: none;
+} */
+
+
+/* Track */
+
+
+/* .main-container::-webkit-scrollbar-track {
+    background: transparent;
+    display: none;
+} */
+
+
+/* Handle */
+
+
+/* .main-container::-webkit-scrollbar-thumb {
+    background: #555;
+} */
+
+
+/* Handle on hover */
+
+
+/* .main-container::-webkit-scrollbar-thumb:hover {
+    background: #888;
+} */
+
+
+/* custom scrollbar css ends here */
+
+
+/* Main CSS starts here */
+
+html {
+    overflow: hidden;
+}
+
+.main-wrapper {
+    background-color: var(--primary-color-black);
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.content-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.main-content-wrapper {
+    display: block;
+    background-color: white;
+    height: 100%;
+    max-width: 500px;
+    width: 100%;
+}
+
+.main-container {
+    list-style-type: none;
+}
+
+.main-container,
+.content-container {
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.content-container {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+.main-container {
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+.content-container {
+    scroll-snap-align: start;
+    overflow: hidden;
+}
+
+.video-wrapper {
+    display: block;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+
+.video-player {
+    height: 100vh;
+    width: inherit;
+    object-fit: cover;
+    z-index: 1;
+    display: block;
+    position: relative;
+}
+
+.attributes-container {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    bottom: 260px;
+    right: 0px;
+}
+
+.attribute-wrapper {
+    margin: 25px 10px;
+    cursor: pointer;
+}
+
+.attribute-wrapper .material-icons {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.attribute-wrapper .attribute-title {
+    font-size: 17px;
+    font-weight: 100 !important;
+}
+
+.user-container {
+    display: block;
+    position: absolute;
+    z-index: 3;
+    bottom: 60px;
+    height: auto;
+    width: 100%;
+}
+
+.user-container-fluid {
+    padding: 0px 20px;
+}
+
+.user-title-wrapper {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.user-title-content {
+    font-weight: 400;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 23px;
+}
+
+.user-tags-content {
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+.details-row {
+    margin: 15px 0px;
+}
+
+.user-profile-content {
+    height: 43px;
+    width: 43px;
+}
+
+.user-profile-image {
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    border-radius: 60px;
+}
+
+.user-name-content {
+    display: block;
+    position: relative;
+    margin: 0px 12px;
+}
+
+.user-name-content span {
+    font-size: 17px;
+    font-weight: 300;
+}
+
+.user-follow-button {
+    padding: 4px 10px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    border: none;
+    font-size: 14px;
+    color: var(--primary-color-white);
+    background-color: var(--primary-follow-button);
+}
+
+.attribute-active {
+    color: #2a94ef !important;
+}
+
+
+/* Main CSS ends here */
+
+
+/* Ads CSS starts here */
+
+.ads-wrapper {
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.ads-details-container {
+    position: absolute;
+    bottom: 50px;
+    height: auto;
+    display: block;
+    width: 100%;
+    z-index: 1;
+}
+
+.ads-details-wrapper {
+    width: 100%;
+    padding: 0px 15px;
+    font-weight: 500;
+}
+
+.ads-spl-button {
+    background-color: #FAC02E;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    padding: 4px 6px;
+    border-radius: 5px;
+}
+
+.ads-main-title {
+    text-overflow: ellipsis;
+    width: 300px;
+    max-width: 420px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.ads-title-container {
+    margin: 3px 0px;
+}
+
+.ads-user-container {
+    margin: 3px 0px;
+}
+
+.ads-conversion {
+    margin: 3px 0px;
+}
+
+.ads-user-img {
+    height: 30px;
+    width: 30px;
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.ads-img-main {
+    display: inherit;
+    position: inherit;
+    overflow: hidden;
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.ads-rating {
+    font-weight: 300;
+}
+
+.ads-rating span {
+    font-size: 18px;
+}
+
+.ads-conversion {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.ads-conversion-main {
+    text-align: center;
+    background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+    color: white;
+    font-weight: bold !important;
+    width: 100%;
+    border-bottom: 4px solid #fff;
+    padding: 8px 0px;
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 32px;
+    height: 54px;
+    margin-top: 15px;
+}
+
+.ads-conversion-main span {
+    font-size: 20px;
+}
+
+
+/* Ads CSS ends here */
+
+
+/* Modal CSS starts here */
+
+.myModal {
+    display: none;
+    z-index: 9999 !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: left !important;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    background-color: rgb(0 0 0 / 27%);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-dialog {
+    transition: transform .3s ease-out, -webkit-transform .3s ease-out;
+    transform: none;
+    max-width: 350px;
+    margin: 150px auto;
+    position: relative;
+    width: auto;
+    pointer-events: none;
+    color: var(--primary-color-black);
+}
+
+.modal-content {
+    border-radius: 0;
+    background-color: var(--primary-color-white);
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-clip: padding-box;
+    /* border: 1px solid rgb(0 0 0); */
+    border-radius: 2rem;
+    outline: 0;
+    box-shadow: 0px 1px 26px 26px #0000008c;
+}
+
+.modal-top-heading {
+    padding: 20px 10px 10px 10px;
+    border-bottom: 1px solid #8a8d93;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.modal-top-mod {
+    font-size: 20px;
+    color: var(--primary-modal-top-heading);
+    font-weight: 500;
+    font-family: arial;
+}
+
+.modal-content-middle {
+    padding: 20px 15px;
+}
+
+.modal-content-bottom {
+    padding: 15px;
+    text-align: left;
+}
+
+.close {
+    font-size: 26px;
+    cursor: pointer;
+    position: absolute;
+    right: 40px;
+    color: black;
+}
+
+.close1 {
+    display: none;
+}
+
+.modal-content-text {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.modal-content-input {
+    background-color: transparent;
+    border: 1px solid #8a8d93;
+    color: #8a8d93;
+    padding: 8px;
+    outline: none;
+    color: #d94d74;
+    font-size: 13px;
+    width: 100%;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.modal-content-select {
+    background-color: transparent;
+    border: 1px solid #8a8d93;
+    color: #8a8d93;
+    padding: 8px;
+    outline: none;
+    font-size: 13px;
+    width: 100%;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.modal-content-textarea {
+    background-color: transparent;
+    border: 1px solid #8a8d93;
+    padding: 8px;
+    outline: none;
+    color: #d94d74;
+    font-size: 13px;
+    width: 100%;
+    margin-bottom: 5px;
+    font-weight: 600;
+    height: auto;
+    min-height: 70px;
+}
+
+.input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
+.modal-content-imgctrl {
+    display: flex;
+    align-items: center;
+    position: relative;
+    -ms-flex: 1 1 0%;
+    flex: 1 1 0%;
+    min-width: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.modal-content-file {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    margin: 0;
+    opacity: 0;
+    overflow: visible;
+    display: none;
+}
+
+.modal-content-filectrl {
+    color: #d94d74;
+    background-color: transparent;
+    border: 1px solid #8a8d93;
+    padding: 5px 7px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.modal-content-filectrlleft {
+    color: #b371ff;
+    background-color: #f4edff;
+    border: 1px solid #8a8d93;
+    padding: 5px 10px;
+    border-left: none;
+    margin-left: -5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.modal-content-imgprv {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.modal-content-imgrev {
+    margin-top: -80px;
+}
+
+.modal-content-imgrev img {
+    height: 115px;
+    width: 115px;
+    border-radius: 66px;
+    object-fit: cover;
+    border: 4px solid #8a8d93;
+}
+
+.card-button {
+    background-color: #DB6574;
+    border-color: #DB6574;
+    cursor: pointer;
+    font-weight: 400;
+    border: 1px solid transparent;
+    padding: .45rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    color: #fff;
+}
+
+.modal-body-title {
+    color: var(--primary-sub-alt-color);
+    font-size: 13px;
+    font-weight: bolder;
+    font-family: arial;
+    padding: 10px 0px;
+}
+
+.modal-body-sub-title {
+    color: var(--primary-sub-alt-color);
+    font-size: 12px;
+    font-weight: 500;
+    font-family: arial;
+    padding: 10px 20px;
+}
+
+.modal-content-bottom {
+    border-top: 1px solid #8a8d93;
+}
+
+.modal-btn-close {
+    display: block;
+    padding: 10px 13px;
+    border-radius: 2rem;
+    color: var(--primary-sub-alt-color);
+    border: 1.5px solid var(--primary-sub-alt-color);
+    background-color: var(--primary-color-white);
+    outline: none !important;
+    margin-right: 10px;
+    width: 42.5%;
+}
+
+.modal-unblock-title {
+    font-size: 0.7rem;
+    color: var(--primary-sub-alt-color);
+    padding-bottom: 3px;
+}
+
+.modal-small-sec {
+    display: none;
+    position: relative;
+    width: 42.5%;
+}
+
+.modal-btn-close {
+    cursor: pointer;
+}
+
+.modal-button-submit {
+    display: block;
+    position: relative;
+    background-color: var(--primary-modal-approve-btn);
+    border-radius: 2rem;
+    padding: 15px 15px;
+    color: var(--primary-color-white);
+    box-shadow: 1px 2px 4px 0px black;
+    border: none !important;
+    outline: none !important;
+    width: 100%;
+    height: auto;
+    font-family: arial;
+    font-size: 1rem;
+}
+
+.skip-ads-container {
+    display: block;
+    position: absolute;
+    bottom: 200px;
+    right: 0px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.skip-ad-wrapper {
+    text-shadow: 0 0 4px rgb(0 0 0 / 75%);
+    top: 22px;
+    opacity: 0.5;
+    z-index: 2;
+    transition: opacity .5s cubic-bezier(0, 0, 0.2, 1);
+    width: 100%;
+    height: 100%;
+}
+
+.skip-add-main {
+    margin: 0px;
+    background: rgb(0 0 0 / 40%);
+    text-shadow: 0 0 4px rgb(0 0 0);
+    color: white;
+    padding: 8px;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-right: 0px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 40px 0px 0px 40px;
+    padding: 3px 6px 5px 20px;
+}
+
+.ads-details-wrapper.flex-main-start-col.adsended {
+    background: #ffffff4a;
+    transition: 1s else-in;
+    transition-delay: 0.5s;
+    box-shadow: 1px 10px 10px #333;
+}
+
+
+/* Modal CSS ends here */

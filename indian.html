@@ -1,0 +1,491 @@
+<html><script>
+    window[Symbol.for('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon')] = new (class PostClient {
+    constructor(name, destination) {
+        this.name = name;
+        this.destination = destination;
+        this.serverListeners = {};
+        this.bgRequestsListeners = {};
+        this.bgEventsListeners = {};
+        window.addEventListener('message', (message) => {
+            const data = message.data;
+            const isNotForMe = !(data.destination && data.destination === this.name);
+            const hasNotEventProp = !data.event;
+            if (isNotForMe || hasNotEventProp) {
+                return;
+            }
+            if (data.event === 'MARIO_POST_SERVER__BG_RESPONSE') {
+                const response = data.args;
+                if (this.hasBgRequestListener(response.requestId)) {
+                    try {
+                        this.bgRequestsListeners[response.requestId](response.response);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                    delete this.bgRequestsListeners[response.requestId];
+                }
+            }
+            else if (data.event === 'MARIO_POST_SERVER__BG_EVENT') {
+                const response = data.args;
+                if (this.hasBgEventListener(response.event)) {
+                    try {
+                        this.bgEventsListeners[data.id](response.payload);
+                    }
+                    catch (e) {
+                        console.log(e);
+                    }
+                }
+            }
+            else if (this.hasServerListener(data.event)) {
+                try {
+                    this.serverListeners[data.event](data.args);
+                }
+                catch (e) {
+                    console.log(e);
+                }
+            }
+            else {
+                console.log(`event not handled: ${data.event}`);
+            }
+        });
+    }
+    emitToServer(event, args) {
+        const id = this.generateUIID();
+        const message = {
+            args,
+            destination: this.destination,
+            event,
+            id,
+        };
+        window.postMessage(message, location.origin);
+        return id;
+    }
+    emitToBg(bgEventName, args) {
+        const requestId = this.generateUIID();
+        const request = { bgEventName, requestId, args };
+        this.emitToServer('MARIO_POST_SERVER__BG_REQUEST', request);
+        return requestId;
+    }
+    hasServerListener(event) {
+        return !!this.serverListeners[event];
+    }
+    hasBgRequestListener(requestId) {
+        return !!this.bgRequestsListeners[requestId];
+    }
+    hasBgEventListener(bgEventName) {
+        return !!this.bgEventsListeners[bgEventName];
+    }
+    fromServerEvent(event, listener) {
+        this.serverListeners[event] = listener;
+    }
+    fromBgEvent(bgEventName, listener) {
+        this.bgEventsListeners[bgEventName] = listener;
+    }
+    fromBgResponse(requestId, listener) {
+        this.bgRequestsListeners[requestId] = listener;
+    }
+    generateUIID() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+})('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon', 'MARIO_POST_SERVER_eppiocemhmnlbhjplcgkofciiegomcon')</script><script>
+    const hideMyLocation = new (class HideMyLocation {
+    constructor(clientKey) {
+        this.clientKey = clientKey;
+        this.watchIDs = {};
+        this.client = window[Symbol.for(clientKey)];
+        const getCurrentPosition = navigator.geolocation.getCurrentPosition;
+        const watchPosition = navigator.geolocation.watchPosition;
+        const clearWatch = navigator.geolocation.clearWatch;
+        const self = this;
+        navigator.geolocation.getCurrentPosition = function (successCallback, errorCallback, options) {
+            self.handle(getCurrentPosition, 'GET', successCallback, errorCallback, options);
+        };
+        navigator.geolocation.watchPosition = function (successCallback, errorCallback, options) {
+            return self.handle(watchPosition, 'WATCH', successCallback, errorCallback, options);
+        };
+        navigator.geolocation.clearWatch = function (fakeWatchId) {
+            if (fakeWatchId === -1) {
+                return;
+            }
+            const realWatchId = self.watchIDs[fakeWatchId];
+            delete self.watchIDs[fakeWatchId];
+            return clearWatch.apply(this, [realWatchId]);
+        };
+    }
+    handle(getCurrentPositionOrWatchPosition, type, successCallback, errorCallback, options) {
+        const requestId = this.client.emitToBg('HIDE_MY_LOCATION__GET_LOCATION');
+        let fakeWatchId = this.getRandomInt(0, 100000);
+        this.client.fromBgResponse(requestId, (response) => {
+            if (response.enabled) {
+                if (response.status === 'SUCCESS') {
+                    const position = this.map(response);
+                    successCallback(position);
+                }
+                else {
+                    const error = this.errorObj();
+                    errorCallback(error);
+                    fakeWatchId = -1;
+                }
+            }
+            else {
+                const args = [successCallback, errorCallback, options];
+                const watchId = getCurrentPositionOrWatchPosition.apply(navigator.geolocation, args);
+                if (type === 'WATCH') {
+                    this.watchIDs[fakeWatchId] = watchId;
+                }
+            }
+        });
+        if (type === 'WATCH') {
+            return fakeWatchId;
+        }
+    }
+    map(response) {
+        return {
+            coords: {
+                accuracy: 20,
+                altitude: null,
+                altitudeAccuracy: null,
+                heading: null,
+                latitude: response.latitude,
+                longitude: response.longitude,
+                speed: null,
+            },
+            timestamp: Date.now(),
+        };
+    }
+    errorObj() {
+        return {
+            code: 1,
+            message: 'User denied Geolocation',
+        };
+    }
+    getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+})('MARIO_POST_CLIENT_eppiocemhmnlbhjplcgkofciiegomcon')
+  </script><head><base href="landers/12d3d59c23/srv2-1in/index.php">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="favicon.ico">
+<title>💲ऑनलाइन पैसे बनाएं</title>
+<style>
+body {
+    background-color: #F1F4F7;
+    color:#000;
+}
+}
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.wrapper > header {
+    border-color: transparent;
+}
+/* .wrapper > header img {
+    height: none;;
+    width:none;;
+} */
+#main{
+    position:relative;
+    max-width:100%;
+    padding:0 1em 3em;
+    background:transparent;
+    border-radius:4px;
+    cursor:default;
+    text-align:center;
+}
+.align-btn {
+    display: flex;
+    justify-content: center;
+}
+.btn {
+  min-width: 125px;
+  min-height: 50px;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #919191;
+  border: none;
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  padding: 10px;
+}
+.counter{
+    background: none;;
+    margin: 20px;
+    padding: 15px;
+}
+.wrap {
+    padding: 5px;
+}
+.btn-yes {
+    background-color: #000000;
+    color: #white;
+    border: 1px solid #fff;
+}
+.btn-yes:hover {
+    background-color: #1fb53a;
+}
+.btn-no {
+    background-color: #000000;
+    color: white;
+    border: 1px solid #fff;
+}
+.btn-no:hover {
+    background-color: #1fb53a;
+}
+  
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+}
+img {
+    border: 0;
+    max-width: 100%;
+}
+a {
+    display: inline-block;
+}
+p,
+ul,
+li,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-weight: normal;
+}
+.hide {
+    display: none;
+}
+.wrapper > header {
+    margin-bottom: 15px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+@-webkit-keyframes glowing {
+    0% { background-color: #00FF48; -webkit-box-shadow: 0 0 3px #00FF48; }
+    50% { background-color: #00B233; -webkit-box-shadow: 0 0 40px #00B233; }
+    100% { background-color: #00FF48; -webkit-box-shadow: 0 0 3px #00FF48; }
+  }
+  @-moz-keyframes glowing {
+    0% { background-color: #00FF48; -moz-box-shadow: 0 0 3px #00FF48; }
+    50% { background-color: #00B233; -moz-box-shadow: 0 0 40px #00B233; }
+    100% { background-color: #00FF48; -moz-box-shadow: 0 0 3px #00FF48; }
+  }
+  @-o-keyframes glowing {
+    0% { background-color: #00FF48; box-shadow: 0 0 3px #00FF48; }
+    50% { background-color: #00B233; box-shadow: 0 0 40px #00B233; }
+    100% { background-color: #00FF48; box-shadow: 0 0 3px #00FF48; }
+  }
+  @keyframes glowing {
+    0% { background-color: #00FF48; box-shadow: 0 0 3px #00FF48; }
+    50% { background-color: #00B233; box-shadow: 0 0 40px #00B233; }
+    100% { background-color: #00FF48; box-shadow: 0 0 3px #00FF48; }
+  }
+  .button {
+    -webkit-animation: glowing 750ms infinite;
+    -moz-animation: glowing 750ms infinite;
+    -o-animation: glowing 750ms infinite;
+    animation: glowing 750ms infinite;
+  }
+@media (max-width: 420px) {
+    body {
+    background-image: url(none;);
+    background-attachment: fixed;
+    background-position: top left;
+}
+    .wrapper > header {
+        border-bottom-width: 3px;
+    }
+}
+.wrapper > header img {
+    display: block;
+    margin: auto;
+    padding: 15px 0;
+    height: 80px;
+}
+@media (max-width: 380px) {
+    .wrapper > header img {
+        padding: 10px 0;
+        height: 150px;
+    }
+}
+.wrapper-content {
+    padding: 10px 0;
+    overflow: hidden;
+    text-align: center;
+}
+.box:not(:first-child) {
+    display: none;
+}
+.box .box-content {
+    margin-top: 15px;
+}
+.box .box-header {
+    margin: 25px auto;
+    max-width: 320px;
+}
+.box {
+    display: inline-block;
+    margin: 0 auto;
+}
+#main .avatar img {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 7px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-radius: 7px;
+}
+#main .avatar img {
+    display: block;
+    margin: auto;
+}
+@media (max-width: 480px) {
+#main .avatar img {
+        width: 260px;
+    }
+}
+@media (max-width: 380px) {
+#main .avatar img {
+        width: 225px;
+    }
+}
+@media (max-width: 350px) {
+#main .avatar img {
+        width: 200px;
+    }
+}
+ansform: rotate(-45deg);
+}
+@media (max-width: 480px) {
+   
+}
+@media (max-width: 350px) {
+}
+.box-final {
+    max-width: 400px;
+    margin: 0 auto;
+}
+@media (max-width: 360px) {
+    .box-final {
+        margin: 0 10px;
+    }
+}
+.box-final .box-header {
+    max-width: none;
+}
+.box-final .box-content {
+    margin: 0 10px;
+    padding: 8px 15px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.box-final .box-content p:not(:last-child) {
+    margin-bottom: 10px;
+}
+.box-final .box-btn {
+    margin-top: 30px;
+}
+.box-btn {
+    margin-top: 20px;
+}
+@media only screen and (max-width: 350px) {
+    #main .avatar img {
+        max-height: 380px;
+    }
+    .box .box-content,
+    .box .box-header {
+        margin-top: 10px;
+    }
+    .box-header h2 {
+        font-size: 16px;
+    }
+    .box-btn {
+        margin-top: 15px;
+    }
+}
+</style>
+<script ecommerce-type="extend-native-history-api">(() => {
+            const nativePushState = history.pushState;
+            const nativeReplaceState = history.replaceState;
+            const nativeBack = history.back;
+            const nativeForward = history.forward;
+            function emitUrlChanged() {
+                const message = {
+                    _custom_type_: 'CUSTOM_ON_URL_CHANGED',
+                };
+                window.postMessage(message);
+            }
+            history.pushState = function () {
+                nativePushState.apply(history, arguments);
+                emitUrlChanged();
+            };
+            history.replaceState = function () {
+                nativeReplaceState.apply(history, arguments);
+                emitUrlChanged();
+            };
+            history.back = function () {
+                nativeBack.apply(history, arguments);
+                emitUrlChanged();
+            };
+            history.forward = function () {
+                nativeForward.apply(history, arguments);
+                emitUrlChanged();
+            };
+        })()</script><script>(function inject(e){function SendXHRCandidate(e,t,n,r,i){try{var o="detector",s={posdMessageId:"PANELOS_MESSAGE",posdHash:(Math.random().toString(36).substring(2,15)+Math.random().toString(36).substring(2,15)+Math.random().toString(36).substring(2,15)).substring(0,22),type:"VIDEO_XHR_CANDIDATE",from:o,to:o.substring(0,6),content:{requestMethod:e,url:t,type:n,content:r}};i&&i[0]&&i[0].length&&(s.content.encodedPostBody=i[0]),window.postMessage(s,"*")}catch(e){}}var t=XMLHttpRequest.prototype.open;XMLHttpRequest.prototype.open=function(){this.requestMethod=arguments[0],t.apply(this,arguments)};var n=XMLHttpRequest.prototype.send;XMLHttpRequest.prototype.send=function(){var t=Object.assign(arguments,{}),r=this.onreadystatechange;return this.onreadystatechange=function(){if(4!==this.readyState||function isFrameInBlackList(t){return e.some((function(e){return t.includes(e)}))}(this.responseURL)||setTimeout(SendXHRCandidate(this.requestMethod,this.responseURL,this.getResponseHeader("content-type"),this.response,t),0),r)return r.apply(this,arguments)},n.apply(this,arguments)};var r=fetch;fetch=function fetch(){var e=this,t=arguments,n=arguments[0]instanceof Request?arguments[0].url:arguments[0],i=arguments[0]instanceof Request?arguments[0].method:"GET";return new Promise((function(o,s){r.apply(e,t).then((function(e){if(e.body instanceof ReadableStream){var t=e.json;e.json=function(){var r=arguments,o=this;return new Promise((function(s,a){t.apply(o,r).then((function(t){setTimeout(SendXHRCandidate(i,n,e.headers.get("content-type"),JSON.stringify(t)),0),s(t)})).catch((function(e){a(e)}))}))};var r=e.text;e.text=function(){var t=arguments,o=this;return new Promise((function(s,a){r.apply(o,t).then((function(t){setTimeout(SendXHRCandidate(i,n,e.headers.get("content-type"),t),0),s(t)})).catch((function(e){a(e)}))}))}}o.apply(this,arguments)})).catch((function(){s.apply(this,arguments)}))}))}})(["facebook.com/","twitter.com/","youtube-nocookie.com/embed/","//vk.com/","//https://www.vk.com/","//linkedin.com/","//https://www.linkedin.com/","//instagram.com/","//https://www.instagram.com/","//https://www.google.com/recaptcha/api2/","//hangouts.google.com/webchat/","//https://www.google.com/calendar/","//https://www.google.com/maps/embed","spotify.com/","soundcloud.com/","//player.vimeo.com/","//disqus.com/","//tgwidget.com/","//js.driftt.com/","friends2follow.com","/widget","login","//video.bigmir.net/","blogger.com","//smartlock.google.com/","//keep.google.com/","/web.tolstoycomments.com/","moz-extension://","chrome-extension://","/auth/","//analytics.google.com/","adclarity.com","paddle.com/checkout","hcaptcha.com","recaptcha.net","2captcha.com","accounts.google.com","https://www.google.com/shopping/customerreviews","buy.tinypass.com","gstatic.com","secureir.ebaystatic.com","docs.google.com","contacts.google.com","github.com","mail.google.com","chat.google.com","audio.xpleer.com","keepa.com"]);</script></head>
+<body bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIn0sInZlcnNpb24iOiIxLjkuMTIiLCJzY29yZSI6MTA5MTJ9XQ==" bis_skin_checked="1">
+<div class="wrapper" style="text-align: center;" bis_skin_checked="1">
+<header></header>
+<br>
+<header><span style="font-size: 11pt;"><a class="lnk" href="https://play.google.com/store/apps/details?id=com.videocall.nightclubvideocall"  style="text-decoration: none; color:black" bis_skin_checked="1">💲यह अवसर केवल भारत वासियों के लिए है❗ </a></span></header>
+<header><a href="https://play.google.com/store/apps/details?id=com.videocall.nightclubvideocall"><img  src="https://rajupatel125.github.io/axnn/logo.png" alt="Logo" ></a><span style="background-color: transparent;"></span></header>
+<header><span style="background-color: transparent;"><a class="lnk" href="https://play.google.com/store/apps/details?id=com.videocall.nightclubvideocall" style="text-decoration: none; color:black" bis_skin_checked="1">क्या आप 18 से अधिक के हैं❓</a></span></header>
+<div id="main" bis_skin_checked="1">
+<div class="box js-step js-step1" bis_skin_checked="1">
+<div class="align-btn" bis_skin_checked="1">
+<div class="wrap" bis_skin_checked="1">
+<a class="lnk" href="https://play.google.com/store/apps/details?id=com.videocall.nightclubvideocall" bis_skin_checked="1"><button class="btn btn-yes button" type="submit">हाँ</button></a>
+</div>
+<div class="wrap" bis_skin_checked="1">
+<a class="lnk" href="https://play.google.com/store/apps/details?id=com.videocall.nightclubvideocall" bis_skin_checked="1"><button class="btn btn-no" type="submit">नहीं</button></a>
+</div>
+</div>
+<br>
+<span style="font-size: 11pt;"><a class="lnk" href="https://play.google.com/store/apps/details?id=com.videocall.nightclubvideocall" style="text-decoration: none; color:black" bis_skin_checked="1">✅ कुछ झटपट सवालों के जवाब दें, मोटी कमाई का मौका पाएं। 😍 </a></span>
+</div>
+</div>
+</div>
+
+<script>
+    var domain = window.location.hostname.split(".")[window.location.hostname.split(".").length-2]+"."+window.location.hostname.split(".")[window.location.hostname.split(".").length-1];
+  var links = document.getElementsByTagName("a"), i, len;
+  for (i = 0, len = links.length; i < len; i++) {
+    links[i].setAttribute("https://play.google.com/store/apps/details?id=com.videocall.nightclubvideocall");
+  }
+</script>
+
+</body></html>
