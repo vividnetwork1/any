@@ -1,0 +1,7 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+updaterecomended.com	TRUE	/	FALSE	1999999999	reverse	khEFBqjUph7FVmMStso4BhYsce_xA5d2ezI0fjDVZt0
+updaterecomended.com	TRUE	/	FALSE	1999999999	OAID	b48c8f1169f1bc9edacedbf4e7254528
+updaterecomended.com	TRUE	/	FALSE	1999999999	oaidts	1702880839
+updaterecomended.com	TRUE	/	FALSE	1999999999	syncedCookie	deleted
+

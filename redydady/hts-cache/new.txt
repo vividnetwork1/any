@@ -1,0 +1,8 @@
+date	size'/'remotesize	flags(request:Update,Range state:File response:Modified,Chunked,gZipped)	statuscode	status ('servermsg')	MIME	Etag|Date	URL	localfile	(from URL)
+11:12:39	26083/26083	---MCZ	200	added ('OK')	text/html	date:Mon,%2018%20Dec%202023%2005:42:38%20GMT	https://redydady.net/RFNRlQHFQe/	/Users/invica/websites/redydady/redydady.net/RFNRlQHFQe/index.html	(from )
+11:12:39	26/26	---M--	200	added ('OK')	text/plain	etag:%2262a10a68-1a%22	https://redydady.net/robots.txt		(from )
+11:12:39	179/179	---MCZ	200	added ('OK')	text/html	etag:W/%223fc8a2dd3e24524acfd7d1d57734367e%22	https://kkland2.pages.dev/	/Users/invica/websites/redydady/kkland2.pages.dev/index.html	(from https://redydady.net/RFNRlQHFQe/)
+11:12:40	25127/25127	---MCZ	200	added ('OK')	application/javascript	etag:W/%22de2564a11fd59c0de19375b7c5a507f1%22	https://kkland2.pages.dev/assets/processLand2.js	/Users/invica/websites/redydady/kkland2.pages.dev/assets/processLand2.js	(from https://redydady.net/RFNRlQHFQe/)
+11:12:40	18451/18451	---M-Z	200	added ('OK')	text/css	etag:W/%224813-cVRgrthAcZRLwmt8seVl8+0QciE%22	https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css	/Users/invica/websites/redydady/cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css	(from https://redydady.net/RFNRlQHFQe/)
+11:12:43	172/172	---MCZ	200	added ('OK')	text/html	etag:W/%223fc8a2dd3e24524acfd7d1d57734367e%22	https://kkland2.pages.dev/robots.txt		(from https://redydady.net/RFNRlQHFQe/)
+11:12:43	143046/143046	---M-Z	200	added ('OK')	application/javascript	etag:W/%2222ec6-XzsUsOzWFyz4l8ZPrexzRg1u7sI%22	https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js	/Users/invica/websites/redydady/cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js	(from https://redydady.net/RFNRlQHFQe/)

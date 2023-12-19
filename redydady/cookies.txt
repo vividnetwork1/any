@@ -1,0 +1,6 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+redydady.net	TRUE	/RFNRlQHFQe/	FALSE	1999999999	lpf-xs-ci	nEJWo
+redydady.net	TRUE	/RFNRlQHFQe/	FALSE	1999999999	lpf-xs-1981	nEJCmV3Co
+redydady.net	TRUE	/	FALSE	1999999999	lpf-xd-u	z6WzkN_zOl
+
