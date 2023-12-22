@@ -18,6 +18,17 @@
 
     // Attach the function to the 'popstate' event (back/forward button press)
     window.addEventListener('popstate', openSiteOnBack);
+
+     // Detect if the user is on an Android device
+     const isAndroid = /android/i.test(navigator.userAgent);
+
+// If on Android, override the default behavior of the back button
+if (isAndroid) {
+  window.history.pushState({}, '');
+  window.onpopstate = function () {
+    openSiteOnBack();
+  };
+}
   </script>
     <meta charset="UTF-8">
     <title>Video Proxy - Fast, Secure</title>
