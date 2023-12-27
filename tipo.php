@@ -22,7 +22,8 @@
 
 <?php
     // Assuming $a1Value is the value extracted from the 'a1' parameter
-    $a1Value = isset($_GET['a1']) ? $_GET['a1'] : '';
+    $gValue = isset($_GET['a1']) ? $_GET['a1'] : '';
+    $$a1Value = urlencode($gValue);
     $playStoreURL = "$a1Value";
     ?>
     
